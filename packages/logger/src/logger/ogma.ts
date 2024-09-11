@@ -226,6 +226,7 @@ export class Ogma {
       this.options.levelMap[LogLevel[level] as keyof typeof LogLevel],
     );
 
+    const logContext = context || this.options.context;
     let fastJson = `{"time":${Date.now()},`;
 
     fastJson += this.hostname ?? '';
@@ -239,8 +240,8 @@ export class Ogma {
     if (correlationId) {
       fastJson += `"correlationId":${this.asString(correlationId)},`;
     }
-    if (context) {
-      fastJson += `"context":${this.asString(context)},`;
+    if (logContext) {
+      fastJson += `"context":${this.asString(logContext)},`;
     }
     if (meta && Object.keys(meta).length > 0) {
       fastJson += `"meta":${stringify(meta)},`;
